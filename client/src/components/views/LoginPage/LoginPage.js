@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
-import Axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
-import { response } from 'express';
-
+import { withRouter } from 'react-router-dom';
 function LoginPage(props) {
   const dispatch = useDispatch();
 
@@ -22,6 +20,7 @@ function LoginPage(props) {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
+    console.log('???');
 
     console.log(Email, Password);
     let body = {
@@ -31,6 +30,8 @@ function LoginPage(props) {
 
     dispatch(loginUser(body))
       .then(response => {
+        console.log('???', response.payload);
+        
         if(response.payload.loginSuccess) {
           props.history.push('/');
         } else {
@@ -63,4 +64,4 @@ function LoginPage(props) {
   );
 }
 
-export default LoginPage;
+export default withRouter(LoginPage);
